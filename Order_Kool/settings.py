@@ -63,7 +63,7 @@ ROOT_URLCONF = 'Order_Kool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['Order_Kool/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
