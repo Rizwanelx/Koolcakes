@@ -33,7 +33,7 @@ urlpatterns = [
     path('products', my_order.index_product, name='home_product'),
     path('product/new/', my_order.new_product, name='new_product'),
     path('product/delete/<int:product_id>/', my_order.destroy_product, name='delete_product'),
-    path('users/login/',auth_views.LoginView.as_view(template_name="order/login.html"), name="login"),
+    path('users/login/',auth_views.LoginView.as_view(template_name="login.html"), name="login"),
     path('users/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('users/change_password/', auth_views.PasswordChangeView.as_view(), {'post_change_redirect' : '/','template_name': 'change_password.html'}, name='change_password'),
 

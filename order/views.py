@@ -7,12 +7,12 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     orders = Order.objects.all()
-    return render(request, 'order/index.html', {'orders': orders})
+    return render(request, 'index.html', {'orders': orders})
 
 @login_required
 def show(request, order_id):
     order = Order.objects.filter(id=order_id)
-    return render(request, 'order/show.html', {'order': order})
+    return render(request, 'show.html', {'order': order})
 
 @login_required
 def new(request):
@@ -27,7 +27,7 @@ def new(request):
             return redirect('/', messages.error(request, 'Form is not valid', 'alert-danger'))
     else:
         form = OrderForm()
-        return render(request, 'order/new.html', {'form':form})
+        return render(request, 'new.html', {'form':form})
 
 @login_required
 def edit(request, order_id):
@@ -43,7 +43,7 @@ def edit(request, order_id):
             return redirect('/', messages.error(request, 'Form is not valid', 'alert-danger'))
     else:
         form = OrderForm(instance=order)
-        return render(request, 'order/edit.html', {'form':form})
+        return render(request, 'edit.html', {'form':form})
 
 @login_required
 def destroy(request, order_id):
@@ -58,7 +58,7 @@ def destroy(request, order_id):
 @login_required
 def index_product(request):
     products = Product.objects.filter(active='1')
-    return render(request, 'order/index_product.html', {'products': products})    
+    return render(request, 'index_product.html', {'products': products})    
 
 @login_required
 def new_product(request):
@@ -73,7 +73,7 @@ def new_product(request):
             return redirect('/products', messages.error(request, 'Form is not valid', 'alert-danger'))
     else:
         product_form = ProductForm()
-        return render(request, 'order/new_product.html', {'product_form':product_form})    
+        return render(request, 'new_product.html', {'product_form':product_form})    
 
 @login_required
 def destroy_product(request, product_id):
