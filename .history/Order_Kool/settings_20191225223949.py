@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'Order_Kool.wsgi.application'
 #     }
 # }
 
-default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
+ default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
 
 
-DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
+ DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
