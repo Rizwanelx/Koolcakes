@@ -1,1 +1,0 @@
-web: gunicorn Order_Kool.wsgi --log-file -

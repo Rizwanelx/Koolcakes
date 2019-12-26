@@ -11,24 +11,25 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from decouple import  config
+from dj_database_url import parse as dburl
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY='bn+bl%b=d_@x7k9@9iq#)l!cmk@=0ii%g3oq#c1exsc%296==h'
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG' , default= False, cast=bool)
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=True
 
 
 
-
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['koolcakesordermanegmentsystem.herokuapp.com',
+                 '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,10 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'order',
     'widget_tweaks',
- 
-
+    'Order_Kool.apps.OrderConfig',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +59,7 @@ ROOT_URLCONF = 'Order_Kool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ 'Order_Kool/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,17 +78,17 @@ WSGI_APPLICATION = 'Order_Kool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
-# default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
+default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
 
 
-# DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
+DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -123,15 +122,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media', )
+MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-
-
+django_heroku.settings(locals())

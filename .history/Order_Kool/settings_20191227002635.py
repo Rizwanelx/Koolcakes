@@ -28,7 +28,8 @@ DEBUG=True
 
 
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['koolcakesordermanegmentsystem.herokuapp.com',
+                 '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'Order_Kool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,17 +80,17 @@ WSGI_APPLICATION = 'Order_Kool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
-# default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
+default_dburl = 'sqlite:///' +  os.path.join(BASE_DIR, 'db.sqlite3')
 
 
-# DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
+DATABASES = {'default': config('DATABASE_URL' , default = default_dburl, cast=dburl), }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -131,7 +132,10 @@ LOGIN_URL = 'login'
 
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 # Extra places for collectstatic to find static files.
 
+django_heroku.settings(locals())
 
